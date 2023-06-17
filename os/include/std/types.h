@@ -77,6 +77,7 @@ typedef long long int64_t;
  */
 typedef unsigned long long uint64_t;
 
+typedef uint32_t uintptr_t;
 
 /*****************************************************************************************************
                                         INT TYPES (SIZES)
@@ -186,5 +187,17 @@ typedef unsigned long long uint64_t;
  */
 #define UINT64_MIN 0
 
+/**
+ * \def UINTPTR_MAX
+ * 
+ * \brief The maximum value a uintptr_t can hold
+ */
+#define UINTPTR_MAX 4294967295
+/**
+ * \def UINTPTR_MIN
+ * 
+ * \brief The minimum value a uintptr_t can hold
+ */
+#define UINTPTR_MIN 0
 
 #endif /* __TYPES_H */

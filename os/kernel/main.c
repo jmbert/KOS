@@ -12,6 +12,8 @@
 #include <std/types.h>
 #include <common/vars.h>
 #include <graphics/graphics.h>
+#include <descriptors/gdt/gdt.h>
+#include <descriptors/idt/idt.h>
 
 /**
  * \fn kinit 
@@ -20,6 +22,10 @@
  * 
 */
 void kinit() {
+
+    init_gdt();
+
+    init_idt();
 
     init_graphics();
 
@@ -33,13 +39,9 @@ void kinit() {
  * \brief Contains the main program flow. Called at the end of \ref kinit
  */
 void kmain(void) {
-
-    for (int x = 0; x < 100; x++) {
-        for (int y = 0; y < 100; y++) {
-            putpixel(rgb(31, 31, 31), x, y);
-        }
-    }
     
+
+    draw_rect(rgb(31, 16, 31), (rect_t){0, 0, 100, 100});
 
     return;
 }

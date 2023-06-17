@@ -26,6 +26,14 @@ typedef struct __FRAMEBUFFER {
     uint8_t bpp;
 }framebuffer_t;
 
+typedef struct __RECT {
+    uint64_t x_off;
+    uint64_t y_off;
+
+    uint64_t width;
+    uint64_t height; 
+}rect_t;
+
 extern framebuffer_t framebuffer;
 
 void set_framebuffer(void);
@@ -35,5 +43,7 @@ void init_graphics(void);
 void putpixel(colour_t colour, uint64_t x, uint64_t y);
 
 colour_t rgb(uint16_t r, uint16_t g, uint16_t b);
+
+void draw_rect(colour_t colour, rect_t rect);
 
 #endif /* __GRAPHICS_H */
