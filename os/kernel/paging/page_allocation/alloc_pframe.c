@@ -15,12 +15,12 @@
 
 uint8_t framemap[];
 
-uintphysaddr_t preframes[];
+uintpaddr_t preframes[];
 
-uintphysaddr_t startframe;
+uintpaddr_t startframe;
 
-uintphysaddr_t kalloc_pframe(void) {
-    startframe = 0x200000;
+uintpaddr_t kalloc_pframe(void) {
+    startframe = 4 * MiB;
     
     int i = 0;
     for (;framemap[i] != PAGE_UNUSED; i++);

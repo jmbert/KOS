@@ -12,7 +12,7 @@
 #include <paging/paging.h>
 #include <common/tools.h>
 
-void setup_directory(pagedir_entry_t page_directory[PAGEDIR_LENGTH]) {
+void setup_directory(pagedir_entry_t *page_directory) {
     for (int i = 0; i < PAGEDIR_LENGTH; i++) {
         
         page_directory[i] = (PFRAME_DIR_FLAG_PRESENT);
@@ -20,20 +20,20 @@ void setup_directory(pagedir_entry_t page_directory[PAGEDIR_LENGTH]) {
     
 }
 
-static void mmap_table(uintphysaddr_t from, uintvaddr_t to, uint64_t size) {
+static void mmap_table(uintpaddr_t from, uintvaddr_t to, uint64_t size) {
     pagetable_entry_t *table = kalloc_pframe();
 
     uint32_t page_index = to / (PAGE_SIZE);
 
     uint32_t table_index = page_index / (PAGETAB_LENGTH);
     
-    page_directory[table_index] = ((uintphysaddr_t)table) | (PFRAME_DIR_FLAG_PRESENT | PFRAME_DIR_FLAG_WRITEABLE);
+    page_directory[table_index] = ((uintpaddr_t)table) | (PFRAME_DIR_FLAG_PRESENT | PFRAME_DIR_FLAG_WRITEABLE);
     for (uint16_t i = 0; size > 0; i++, size -= PAGE_SIZE) {
         table[i] = (from + i*PAGE_SIZE) | (PFRAME_TAB_FLAG_PRESENT | PFRAME_TAB_FLAG_WRITEABLE);
     }
 }
 
-void mmap(uintphysaddr_t from, uintvaddr_t to, uint64_t size) {
+void mmap(uintpaddr_t from, uintvaddr_t to, uint64_t size) {
 
     uint32_t table_size = PAGETAB_SIZE;
 
@@ -52,7 +52,8 @@ void mmap(uintphysaddr_t from, uintvaddr_t to, uint64_t size) {
 }
 
 void umap(uintvaddr_t start, uintvaddr_t end) {
-    start, end &= 0xfffff000; /* Discard offset bits */
+    start = start >> 12; /* Discard offset bits */
+    end = end >> 12;     /* Discard offset bits */
 
     uint32_t start_table_index = start/(PAGETAB_LENGTH);
     uint32_t end_table_index  = end/(PAGETAB_LENGTH);

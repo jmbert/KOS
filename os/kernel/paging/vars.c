@@ -11,4 +11,4 @@
 
 #include <paging/paging.h>
 
-pagedir_entry_t page_directory[PAGEDIR_LENGTH] __attribute__((aligned(PAGE_SIZE)));
+pagedir_entry_t *page_directory;

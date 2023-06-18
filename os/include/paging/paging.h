@@ -53,18 +53,18 @@ typedef uint32_t pagedir_entry_t;
 
 typedef uint32_t pagetable_entry_t;
 
-typedef uintphysaddr_t pageframe_t;
+typedef uintpaddr_t pageframe_t;
 
-extern pagedir_entry_t page_directory[PAGEDIR_LENGTH] __attribute__((aligned(PAGE_SIZE)));
+extern pagedir_entry_t *page_directory;
 
 
 void init_paging(void);
 
-void setup_directory(pagedir_entry_t page_directory[PAGEDIR_LENGTH]);
+void setup_directory(pagedir_entry_t *page_directory);
 
-uintphysaddr_t kalloc_pframe(void);
+uintpaddr_t kalloc_pframe(void);
 
-void mmap(uintphysaddr_t from, uintvaddr_t to, uint64_t size);
+void mmap(uintpaddr_t from, uintvaddr_t to, uint64_t size);
 
 void umap(uintvaddr_t start, uintvaddr_t end);
 
