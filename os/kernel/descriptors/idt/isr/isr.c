@@ -10,8 +10,23 @@
  */
 
 #include <descriptors/idt/idt.h>
+#include <descriptors/idt/isr.h>
+#include <common/values.h>
 
-extern void exception_handler(uint8_t irq) {
-    *(uint32_t*)0x70000 = irq;
-    __asm__ volatile ("cli; hlt"); // Completely hangs the computer
+extern void interrupt_handler(uint8_t error, uint8_t irq) {
+
+    switch (irq)
+    {
+    case ISR_PAGE_FAULT:
+        __asm__ volatile ("cli; hlt"); // Completely hangs the computer
+        break;
+    
+    default:
+        break;
+    }
+
+    if (error) {
+        __asm__ volatile ("cli; hlt"); // Completely hangs the computer
+    }
+    
 }

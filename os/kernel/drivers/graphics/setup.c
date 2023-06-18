@@ -11,6 +11,7 @@
 
 #include <graphics/graphics.h>
 #include <common/vars.h>
+#include <common/tools.h>
 
 void init_graphics(void) {
     set_framebuffer();

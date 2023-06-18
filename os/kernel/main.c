@@ -14,6 +14,8 @@
 #include <graphics/graphics.h>
 #include <descriptors/gdt/gdt.h>
 #include <descriptors/idt/idt.h>
+#include <paging/paging.h>
+#include <common/tools.h>
 
 /**
  * \fn kinit 
@@ -39,7 +41,6 @@ void kinit() {
  * \brief Contains the main program flow. Called at the end of \ref kinit
  */
 void kmain(void) {
-    
 
     draw_rect(rgb(31, 16, 31), (rect_t){0, 0, 100, 100});
 

@@ -13,6 +13,7 @@
 #define __COMMON_VARS_H
 
 #include <gnu/multiboot.h>
+#include <std/types.h>  
 
 extern multiboot_info_t *boot_info;
 

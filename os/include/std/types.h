@@ -77,7 +77,9 @@ typedef long long int64_t;
  */
 typedef unsigned long long uint64_t;
 
-typedef uint32_t uintptr_t;
+typedef uint32_t uintphysaddr_t;
+
+typedef uint32_t uintvaddr_t;
 
 /*****************************************************************************************************
                                         INT TYPES (SIZES)
@@ -188,16 +190,29 @@ typedef uint32_t uintptr_t;
 #define UINT64_MIN 0
 
 /**
- * \def UINTPTR_MAX
+ * \def UINTPHYSADDR_MAX
  * 
- * \brief The maximum value a uintptr_t can hold
+ * \brief The maximum value a uintphysaddr_t can hold
  */
-#define UINTPTR_MAX 4294967295
+#define UINTPHYSADDR_MAX 4294967295
 /**
- * \def UINTPTR_MIN
+ * \def UINTPHYSADDR_MIN
  * 
- * \brief The minimum value a uintptr_t can hold
+ * \brief The minimum value a uintphysaddr_t can hold
  */
-#define UINTPTR_MIN 0
+#define UINTPHYSADDR_MIN 0
+
+/**
+ * \def UINTVADDR_MAX
+ * 
+ * \brief The maximum value a uintvaddr_t can hold
+ */
+#define UINTVADDR_MAX 4294967295
+/**
+ * \def UINTVADDR_MIN
+ * 
+ * \brief The minimum value a uintvaddr_t can hold
+ */
+#define UINTVADDR_MIN 0
 
 #endif /* __TYPES_H */

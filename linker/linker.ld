@@ -38,7 +38,6 @@ SECTIONS
 		*(.bss)
 		
 	}
-	kernel_end = 0x1f000;
  
 	/* The compiler may produce other sections, by default it will put them in
 	   a segment with the same name. Simply add stuff here as needed. */

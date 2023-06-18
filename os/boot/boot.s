@@ -88,6 +88,12 @@ _start:
 	extern store_multiboot
 	call store_multiboot
 
+	extern init_paging
+	call init_paging
+
+	extern enable_paging
+	call enable_paging
+
 	extern kinit
 	call kinit
 
