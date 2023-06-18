@@ -2,3 +2,4 @@ bin/
 build/
 isodir/
 os/docs/
+.vscode/
