@@ -13,14 +13,10 @@
 #include <descriptors/idt/isr.h>
 #include <common/values.h>
 
-extern void interrupt_handler(uint8_t error, uint8_t irq) {
+void interrupt_handler(uint8_t error, uint8_t irq) {
 
     switch (irq)
     {
-    case ISR_PAGE_FAULT:
-        __asm__ volatile ("cli; hlt"); // Completely hangs the computer
-        break;
-    
     default:
         break;
     }
