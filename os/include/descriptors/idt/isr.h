@@ -12,31 +12,108 @@
 #ifndef __ISR_H
 #define __ISR_H
 
-#define ISR_DIVERR 0
-#define ISR_DEBUG 1
-#define ISR_NMI 2
-#define ISR_BREAK 3
-#define ISR_OVERFLOW 4
-#define ISR_BNDRNG 5
-#define ISR_INVOP 6
-#define ISR_NODEV 7
-#define ISR_DOUBLE 8
-#define UNUSED_ISR_COPROC 9
-#define ISR_INVTSS 10
-#define ISR_SEGPRES 11
-#define ISR_SSF 12
-#define ISR_GPF 13
-#define ISR_PAGE_FAULT 14
-#define ISR_FLOATEXCEP_X86 16
-#define ISR_ALIGNMENT 17
-#define ISR_MACHINE 18
-#define ISR_FLOATEXCEP_SIMD 19
-#define ISR_VIRTUALISATION 20
-#define ISR_CONTROLPROC 21
-#define ISR_HVINJECTION 28
-#define ISR_VMMCOMMS 29
-#define ISR_SECURITY 30
-#define ISR_RESERVED 15 | 22 | 23 | 24 | 25 | 26 | 27 | 31
+typedef enum __ISR_INTERRUPTS {
+    /**
+     * \brief Division Error 
+    */
+    ISR_DIVERR, 
+    /**
+     * \brief Debug exception
+    */
+    ISR_DEBUG,  
+    /**
+     * \brief Non-maskable Interrupt
+    */ 
+    ISR_NMI,   
+    /**
+     * \brief Breakpoint
+    */          
+    ISR_BREAK,    
+    /**
+     * \brief INT0 with overflow bit of RFLAGS set
+    */       
+    ISR_OVERFLOW,        
+    /**
+     * \brief BOUND index out of range
+    */
+    ISR_BNDRNG,          
+    /**
+     * \brief Invalid operation
+    */
+    ISR_INVOP,           
+    /**
+     * \brief FPU instruction attempted without FPU
+    */
+    ISR_NODEV,           
+    /**
+     * \brief Double Fault
+    */
+    ISR_DOUBLE,          
+    /**
+     * \brief FPU segment overrun 
+     * \warning Unused since the 486, handled by a GPF
+    */
+    UNUSED_ISR_COPROC, 
+    /**
+     * \brief Invalid TSS segment referenced
+    */  
+    ISR_INVTSS,          
+    /**
+     * \brief Accessed segment with present bit set to 0
+    */
+    ISR_SEGPRES,         
+    /**
+     * \brief Stack segment fault
+    */
+    ISR_SSF,             
+    /**
+     * \brief General Protection fault
+    */
+    ISR_GPF,             
+    /**
+     * \brief Page fault - when the page being accessed has present set to 0
+    */
+    ISR_PAGE_FAULT,  
+    // 15 is reserved
+    /**
+     * \brief Floating point exception on the x86
+    */
+    ISR_FLOATEXCEP_X86 = 16, 
+    /**
+     * \brief Alignment checking enabled : unaligned memory address referenced
+    */
+    ISR_ALIGNMENT, 
+    /**
+     * \brief Model specific, processor internal errors
+    */
+    ISR_MACHINE, 
+    /**
+     * \brief SIMD floating point exception
+    */
+    ISR_FLOATEXCEP_SIMD,
+    /**
+     * \brief Virtualisation exception
+    */
+    ISR_VIRTUALISATION,  
+    /**
+     * \brief Control protection exception
+    */
+    ISR_CONTROLPROC,
+    // 22-27 Are reserved
+    /**
+     * \brief Hypervisor injection exception
+    */
+    ISR_HVINJECTION = 28,   
+    /**
+     * \brief VMM communication exception
+    */  
+    ISR_VMMCOMMS,        
+    /**
+     * \brief Security exception
+    */
+    ISR_SECURITY  
+    // 31 is reserved    
+}interrupts_e;
 
 void exception_handler(void);
 
