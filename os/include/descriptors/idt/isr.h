@@ -115,6 +115,6 @@ typedef enum __ISR_INTERRUPTS {
     // 31 is reserved    
 }interrupts_e;
 
-void exception_handler(void);
+void interrupt_handler(uint8_t error, uint8_t irq);
 
 #endif /* __ISR_H */
