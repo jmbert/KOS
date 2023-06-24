@@ -7,7 +7,7 @@ BUILD = $(ROOTDIR)/build
 BIN = $(ROOTDIR)/bin
 
 # Files
-LPATH = $(ROOTDIR)/linker/linker.ld
+LDFILE = $(ROOTDIR)/linker/linker.ld
 
 SSRCS = $(shell find $(SRCDIRS) | grep "\.s")
 CSRCS = $(shell find $(SRCDIRS) | grep "\.c")
@@ -41,7 +41,7 @@ ASFLAGS = -felf32
 ASPFLAGS =
 
 LD = /usr/local/i386elfgcc/bin/i386-elf-gcc
-LDFLAGS = -T$(LPATH)
+LDFLAGS = -T$(LDFILE)
 LDOFLAGS = -ffreestanding -O2 -nostdlib
 LDPFLAGS = -lgcc
 
