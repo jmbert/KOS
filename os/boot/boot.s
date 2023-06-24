@@ -84,16 +84,103 @@ _start:
 	; stack since (pushed 0 bytes so far) and the alignment is thus
 	; preserved and the call is well defined.
         ; note, that if you are building on Windows, C functions may have "_" prefix in assembly: _kernel_main
+
+	KERNEL_LOW equ 0x100000
+	KERNEL_HIGH equ 0xC0000000
+
+	PAGE_STRUCT_START equ 0x400000
+
+	PAGE_SIZE equ 0x1000
+	PAGE_DIRECTORY equ 0x400000
+	PAGE_TABLE_ID equ 0x401000
+	PAGE_TABLE_PAGING equ 0x402000
+	PAGE_TABLE_HIGH equ 0x403000
+	MAP_LEN equ 1024
+	PTABLE_FLAGS equ 0b11
+
+	mov eax, PAGE_TABLE_ID
+	or eax, PTABLE_FLAGS
+	mov [PAGE_DIRECTORY], eax
+
+	mov eax, PAGE_TABLE_PAGING
+	or eax, PTABLE_FLAGS
+	mov [PAGE_DIRECTORY+0x4], eax
+
+	mov eax, PAGE_TABLE_HIGH
+	or eax, PTABLE_FLAGS
+	mov [PAGE_DIRECTORY+0xc00], eax
+
+
+	mov ecx, MAP_LEN ; Load ecx and edx with appropriate values
+	mov edx, 0
+.fill_table_id: ; Loop label
+	add edx, PTABLE_FLAGS ; Give the address the flags
+	mov eax, MAP_LEN ; Inverse the counter (ecx counts down)
+	sub eax, ecx 
+	shl eax, 2 ; Multiply the counter by 4 to get the 32-bit offset
+	mov [PAGE_TABLE_ID+eax], edx ; Actually set the entry
+
+	sub edx, PTABLE_FLAGS ; Take the flags from the address 
+
+	dec ecx ; Increment loop
+	add edx, PAGE_SIZE
+	test ecx, ecx
+	jne .fill_table_id 
+
+	mov ecx, MAP_LEN ; Load ecx and edx with appropriate values
+	mov edx, 0
+
+	mov ecx, MAP_LEN ; Load ecx and edx with appropriate values
+	mov edx, PAGE_STRUCT_START
+.fill_table_paging: ; Loop label
+	add edx, PTABLE_FLAGS ; Give the address the flags
+	mov eax, MAP_LEN ; Inverse the counter (ecx counts down)
+	sub eax, ecx 
+	shl eax, 2 ; Multiply the counter by 4 to get the 32-bit offset
+	mov [PAGE_TABLE_PAGING+eax], edx ; Actually set the entry
+
+	sub edx, PTABLE_FLAGS ; Take the flags from the address 
+
+	dec ecx ; Increment loop
+	add edx, PAGE_SIZE
+	test ecx, ecx
+	jne .fill_table_paging 
+
+	mov ecx, MAP_LEN ; Load ecx and edx with appropriate values
+	mov edx, 0
+
+.fill_table_high:
+	add edx, PTABLE_FLAGS
+	mov eax, MAP_LEN
+	sub eax, ecx
+	shl eax, 2
+	mov [PAGE_TABLE_HIGH+eax], edx
+
+	sub edx, PTABLE_FLAGS
+
+	dec ecx
+	add edx, PAGE_SIZE
+	test ecx, ecx
+	jne .fill_table_high 
+
+
+    mov eax, PAGE_DIRECTORY ; Load the page directory address for loading
+
+    mov cr3, eax ; Load page directory into control register 3
+
+    mov eax, cr0 ; Copy control register into eax for modification
+    or eax, 0x80000000 ; Enable Paging bit
+    mov cr0, eax ; Copy eax back to control register 0
+
+
+
 	push ebx
+
+	jmp .kernel_high+KERNEL_HIGH
+.kernel_high:
+	
 	extern store_multiboot
 	call store_multiboot
-
-	extern init_paging
-	call init_paging
-
-	extern enable_paging
-	call enable_paging
-
 	extern kinit
 	call kinit
 
@@ -109,3 +196,6 @@ _start:
 .hang: hlt
 	jmp .hang
 .end:
+
+global page_directory
+page_directory: dd PAGE_DIRECTORY
