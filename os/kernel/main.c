@@ -25,6 +25,8 @@
 */
 void kinit() {
 
+    umap(0, 0x400000); // Unmaps identity mapping made
+
     init_gdt();
 
     init_idt();

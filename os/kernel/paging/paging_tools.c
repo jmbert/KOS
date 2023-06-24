@@ -18,13 +18,10 @@ static void mmap_page(uint32_t page_index, uintvaddr_t to, uint8_t flags) {
 
     pagetable_entry_t *page_table = page_directory[pagetable_index] & PAGEALIGN_MASK;
 
-
     page_table[page_offset] = (to) | flags;
 }
 
 void mmap(uintpaddr_t from, uintvaddr_t to, uint64_t size) {
-    
-    write_32(from, KERNEL_HIGH_START + 0x70000);
 
     uint32_t page_index = to >> 12;
 
@@ -44,8 +41,6 @@ void mmap(uintpaddr_t from, uintvaddr_t to, uint64_t size) {
         
     }
 
-    
-    
 }
 
 static void umap_page(uint32_t page_index) {
@@ -63,14 +58,14 @@ static void umap_page(uint32_t page_index) {
 
 void umap(uintvaddr_t start, uintvaddr_t end) {
     uint32_t page_index = start >> 12;
-    uint32_t end_index = end >> 12;
+    uint32_t end_page_index = end >> 12;
 
     uint32_t table_index = page_index/PAGETAB_LENGTH;
-    uint32_t end_table_index = (end_index/PAGETAB_LENGTH)+1;
+    uint32_t end_table_index = (end_page_index/PAGETAB_LENGTH);
 
-    
-    for (;page_index < end_index;page_index++) {
+    for (;page_index < end_page_index; page_index++) {
         umap_page(page_index);
+        invalidate_page(page_index << 12);
     }
 
     for (; table_index < end_table_index;table_index++) {
