@@ -19,6 +19,7 @@
 
 typedef COLOUR_BASE colour_t;
 
+#define FRAMEBUFFER_START 0xFD000000
 typedef struct __FRAMEBUFFER {
     colour_t *addr;
     uint64_t height;
