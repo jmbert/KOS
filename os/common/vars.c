@@ -11,4 +11,4 @@
 
 #include <common/vars.h>
 
-multiboot_info_t *boot_info;
+multiboot_info_t *boot_info = 0xc0010000;
