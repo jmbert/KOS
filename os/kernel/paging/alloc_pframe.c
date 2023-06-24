@@ -20,7 +20,8 @@ uintpaddr_t preframes[];
 uintpaddr_t startframe;
 
 uintpaddr_t kalloc_pframe(void) {
-    startframe = 4 * MiB;
+    
+    startframe = 4 * MiB + 0x4000;
     
     int i = 0;
     for (;framemap[i] != PAGE_UNUSED; i++);
