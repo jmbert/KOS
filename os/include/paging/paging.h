@@ -58,11 +58,6 @@ typedef uintpaddr_t pageframe_t;
 
 extern pagedir_entry_t *page_directory;
 
-
-void init_paging(void);
-
-void setup_directory(pagedir_entry_t *page_directory);
-
 uintpaddr_t kalloc_pframe(void);
 
 void mmap(uintpaddr_t from, uintvaddr_t to, uint64_t size);
