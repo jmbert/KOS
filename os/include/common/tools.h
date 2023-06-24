@@ -20,6 +20,7 @@ void enable_interrupts(void);
 
 void disable_interrupts(void);
 
+void invalidate_page(uintvaddr_t addr);
 void write_8(uint8_t val, uintvaddr_t address);
 
 void write_16(uint16_t val, uintvaddr_t address);

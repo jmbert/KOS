@@ -23,3 +23,7 @@ void enable_interrupts(void) {
 void disable_interrupts(void) {
     __asm__ volatile ("cli");
 }
+
+void invalidate_page(uintvaddr_t addr) {
+    __asm__ volatile ("invlpg (%0)" ::"r" (addr) : "memory");
+}
