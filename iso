@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+. ./build
+ 
+mkdir -p isodir
+mkdir -p isodir/boot
+mkdir -p isodir/boot/grub
+ 
+cp sysroot/boot/KOS.krnl isodir/boot/KOS.krnl
+cat > isodir/boot/grub/grub.cfg << EOF
+menuentry "KOS" {
+	multiboot /boot/KOS.krnl
+}
+EOF
+grub-mkrescue -o KOS.iso isodir

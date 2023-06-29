@@ -1,5 +1,7 @@
-bin/
-build/
 isodir/
 os/docs/
 .vscode/
+TODO.md
+*.iso
+sysroot/
+%.krnl

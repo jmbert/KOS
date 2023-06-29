@@ -1,0 +1,11 @@
+#include <tty.h>
+
+#include <tools.h>
+
+void enable_cursor(void) {
+    outb(0x0A, 0x3D4);
+	outb((inb(0x3D5) & 0xC0) | 14, 0x3D5);
+ 
+	outb(0x3D4, 0x0B);
+	outb(0x3D5, (inb(0x3D5) & 0xE0) | 15);
+}
