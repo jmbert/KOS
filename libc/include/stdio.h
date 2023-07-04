@@ -3,16 +3,26 @@
 
 #include <sys/cdefs.h>
 
+#if defined __cplusplus
+extern "C" {
+#endif
+
 #if defined __is_libk
 
 void write_character(char c);
 
 #endif
 
-void    printf(char *s, ...);
+int    printf(char *s, ...);
 
-void    putc(char c);
+int    putchar(char c);
 
-void    puts(char *s);
+int    puts(char *s);
+
+#if defined __iscplusplus
+}
+#endif
+
+#define EOF 0
 
 #endif

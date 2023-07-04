@@ -15,7 +15,7 @@
 
 extern size_t current_off; 
 
-void tty_write_char(char c);
+int tty_write_char(char c);
 
 void tty_change_col(uint8_t new_col);
 

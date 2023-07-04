@@ -15,5 +15,13 @@ int memcmp(const void *s1, const void *s2, size_t n) {
     return 1;
     #else 
 
+    /* Unused so far, just to satisfy --pedantic */
+
+    uint8_t *arith_s1 = (uint8_t*)s1;
+    uint8_t *arith_s2 = (uint8_t*)s2;
+    arith_s1 += n;
+    arith_s2 += n;
+
+    return 0;
     #endif
 }

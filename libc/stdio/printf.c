@@ -4,14 +4,16 @@
 #include <string.h>
 
 
-void printf(char *s, ...) {
+int printf(char *s, ...) {
     #if defined __is_libk /* Building for kernel */
 
     va_list var_args;
 
     va_start(var_args, s);
 
-    for (;*s != '\0';s++) {
+    int n = 0;
+
+    for (;*s != '\0';s++, n++) {
         if (*s == '%') {
             s++;
             switch (*s)
@@ -19,12 +21,12 @@ void printf(char *s, ...) {
             case 's': ;
                 char *s_1 = va_arg(var_args, char*);
                 for (;*s_1 != '\0';s_1++) {
-                    putc(*s_1);
+                    putchar(*s_1);
                 }
                 break;
             case 'c': ;
                 char c_1 = va_arg(var_args, int);
-                putc(c_1);    
+                putchar(c_1);    
                 break;
             case 'd': ;
                 int d_1 = va_arg(var_args, int);
@@ -34,7 +36,7 @@ void printf(char *s, ...) {
                     d_2 += d_1%10;
                 }
                 for (;d_2 > 0; d_2 /= 10) {
-                    putc(d_2%10 + '0');
+                    putchar(d_2%10 + '0');
                 }
                 break;
             case 'x': ;
@@ -46,9 +48,9 @@ void printf(char *s, ...) {
                 }
                 for (;x_2 > 0; x_2 /= 16) {
                     if (x_2%16 > 9) {
-                        putc(x_2%16 - 10 + 'a');
+                        putchar(x_2%16 - 10 + 'a');
                     } else {
-                        putc(x_2%16 + '0');
+                        putchar(x_2%16 + '0');
                     }
                     
                 }
@@ -62,24 +64,33 @@ void printf(char *s, ...) {
                 }
                 for (;X_2 > 0; X_2 /= 16) {
                     if (X_2%16 > 9) {
-                        putc(X_2%16 - 10 + 'a');
+                        putchar(X_2%16 - 10 + 'a');
                     } else {
-                        putc(X_2%16 + '0');
+                        putchar(X_2%16 + '0');
                     }
                     
                 }
                 break;
             default:
-                putc('%');
-                putc(*s);
+                putchar('%');
+                putchar(*s);
                 break;
             }
         } else {
-            putc(*s);
+            putchar(*s);
         }
     }
 
+    return n;
+
     #else                 /* Building for libc */
+
+    /* Unused, just to satisfy --pedantic */
+
+    s++;
+
+    return 0;
+
 
     #endif
 }
