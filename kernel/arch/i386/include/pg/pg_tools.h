@@ -1,5 +1,5 @@
-#ifndef  _PG_TOOLS
-#define _PG_TOOLS
+#ifndef  _PG_TOOLS_H
+#define _PG_TOOLS_H
 
 #include <pg/pg_types.h>
 
