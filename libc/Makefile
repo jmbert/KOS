@@ -36,6 +36,7 @@ string/strlen.o \
 stdio/putchar.o \
 stdio/puts.o \
 stdio/printf.o \
+stdlib/malloc.o \
  
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \
