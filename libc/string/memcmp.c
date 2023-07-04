@@ -4,8 +4,11 @@
 
 int memcmp(const void *s1, const void *s2, size_t n) {
     #if defined __is_libk
+    uint8_t *arith_s1 = (uint8_t*)s1;
+    uint8_t *arith_s2 = (uint8_t*)s2;
+
     for (size_t off = 0; off < n; off++) {
-        if (s1+off != s2+off) {
+        if (arith_s1+off != arith_s2+off) {
             return 0;
         }
     }

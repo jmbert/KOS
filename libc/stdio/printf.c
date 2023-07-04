@@ -16,17 +16,17 @@ void printf(char *s, ...) {
             s++;
             switch (*s)
             {
-            case 's':
+            case 's': ;
                 char *s_1 = va_arg(var_args, char*);
                 for (;*s_1 != '\0';s_1++) {
                     putc(*s_1);
                 }
                 break;
-            case 'c':
+            case 'c': ;
                 char c_1 = va_arg(var_args, int);
                 putc(c_1);    
                 break;
-            case 'd':
+            case 'd': ;
                 int d_1 = va_arg(var_args, int);
                 int d_2 = 0;
                 for (;d_1 > 0;d_1 /= 10) {
@@ -37,7 +37,7 @@ void printf(char *s, ...) {
                     putc(d_2%10 + '0');
                 }
                 break;
-            case 'x':
+            case 'x': ;
                 int x_1 = va_arg(var_args, int);
                 int x_2 = 0;
                 for (;x_1 > 0;x_1 /= 16) {
@@ -53,7 +53,7 @@ void printf(char *s, ...) {
                     
                 }
                 break;
-            case 'X':
+            case 'X': ;
                 int X_1 = va_arg(var_args, int);
                 int X_2 = 0;
                 for (;X_1 > 0;X_1 /= 16) {
