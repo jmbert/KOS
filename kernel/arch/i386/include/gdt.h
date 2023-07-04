@@ -32,6 +32,8 @@ void set_gdt_entry(gdt_entry_t *gdt, size_t index, uintptr_t base, uintptr_t lim
 
 void load_gdt(gdt_entry_t *gdt);
 
+void setGdt(size_t size, gdt_entry_t* off);
+
 void reload_segments(void);
 
 #endif

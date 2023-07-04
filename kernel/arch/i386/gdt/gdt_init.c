@@ -1,7 +1,5 @@
 #include <gdt.h>
 
-extern void (setGdt)(size_t, gdt_entry_t*); /* From load_gdt.S */
-
 gdt_entry_t gdt[5];
 
 void gdt_init(void) {
