@@ -21,7 +21,7 @@ DEPTH=0
 
 GBUFFER=0xFB000000
  
-CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
+CFLAGS:=$(CFLAGS)
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -DMODE=$(MODE) -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT) -DDEPTH=$(DEPTH) -DGBUFFER=$(GBUFFER) $(GRAPHICS) -Iinclude -Iarch/$(HOSTARCH)/include
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
