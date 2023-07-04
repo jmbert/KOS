@@ -1,3 +1,5 @@
+#include <sys/cdefs.h>
+
 #include <stdio.h>
 
 #if defined __is_libk

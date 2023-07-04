@@ -1,3 +1,5 @@
+#include <sys/cdefs.h>
+
 #include <stdio.h>
 
 int puts(char *s) {

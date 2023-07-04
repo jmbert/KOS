@@ -1,7 +1,7 @@
 #ifndef _STDIO_H
 #define _STDIO_H
 
-#include <sys/cdefs.h>
+
 
 #if defined __cplusplus
 extern "C" {

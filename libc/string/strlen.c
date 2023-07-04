@@ -1,3 +1,5 @@
+#include <sys/cdefs.h>
+
 #include <string.h>
 
 #include <stdint.h>
@@ -11,7 +13,7 @@ size_t strlen(const char *s) {
     }
     #else 
 
-    /* Unused, just to satisfy --pedantic */
+    /* Unused, just to satisfy --pedamtoc */
 
     s++;
 
