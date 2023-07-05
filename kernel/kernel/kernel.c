@@ -11,6 +11,7 @@ void kernel_main(void) {
 }
 
 void kernel_init(multiboot_info_t *minfo) {
+    disable_cursor();
     arch_init(minfo);
 
     tty_change_col(0x1F);
