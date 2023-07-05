@@ -51,6 +51,9 @@ isr/exceptions/handlers/__invalid_instr_handler.o \
 isr/exceptions/handlers/__page_fault_handler.o \
 isr/exceptions/exception_handler.o \
 panic/kernel_panic.o \
+panic/kernel_warning.o \
+panic/kernel_info.o \
+panic/kernel_save.o \
  
 OBJS=\
 $(KERNEL_OBJS) \
