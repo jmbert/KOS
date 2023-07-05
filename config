@@ -1,7 +1,7 @@
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"
  
-export PATH=$PATH:/home/joe/opt/cross/bin
+export PATH=$PATH
 
 export MAKE=${MAKE:-make}
 export HOST=${HOST:-$(./default-host)}
