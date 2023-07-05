@@ -32,6 +32,10 @@ int printf(char *fmt, ...) {
                 break;
             case 'd': ;
                 int d_1 = va_arg(var_args, int);
+                if (d_1 == 0) {
+                    putchar('0');
+                    break;
+                }
                 int d_2 = 0;
                 for (;d_1 > 0;d_1 /= 10) {
                     d_2 *= 10;
@@ -43,6 +47,10 @@ int printf(char *fmt, ...) {
                 break;
             case 'x': ;
                 int x_1 = va_arg(var_args, int);
+                if (x_1 == 0) {
+                    putchar('0');
+                    break;
+                }
                 int x_2 = 0;
                 for (;x_1 > 0;x_1 /= 16) {
                     x_2 *= 16;
@@ -59,6 +67,10 @@ int printf(char *fmt, ...) {
                 break;
             case 'X': ;
                 int X_1 = va_arg(var_args, int);
+                if (X_1 == 0) {
+                    putchar('0');
+                    break;
+                }
                 int X_2 = 0;
                 for (;X_1 > 0;X_1 /= 16) {
                     X_2 *= 16;
