@@ -29,9 +29,6 @@ void idt_init() {
         idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
         
     }
-
-    memcpy((uint8_t*)0xc0070000, (uint8_t*)(&idtr), sizeof(idtr_t));
-    
  
     __asm__ volatile ("lidt %0" : : "m"(idtr)); // load the new IDT
     __asm__ volatile ("sti"); // set the interrupt flag
