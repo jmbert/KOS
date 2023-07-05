@@ -15,7 +15,7 @@ INCLUDEDIR?=$(PREFIX)/include
 
 GRAPHICS=
 MODE=0
-WIDTH=80
+WIDTH=160
 HEIGHT=25
 DEPTH=0
 
@@ -48,6 +48,7 @@ tty/set_cursor.o \
 tty/get_cursor.o \
 tty/tty_newline.o \
 isr/exceptions/handlers/__invalid_instr_handler.o \
+isr/exceptions/handlers/__page_fault_handler.o \
 isr/exceptions/exception_handler.o \
 panic/kernel_panic.o \
  
