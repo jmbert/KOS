@@ -78,7 +78,7 @@ int printf(char *fmt, ...) {
                 }
                 for (;X_2 > 0; X_2 /= 16) {
                     if (X_2%16 > 9) {
-                        putchar(X_2%16 - 10 + 'a');
+                        putchar(X_2%16 - 10 + 'A');
                     } else {
                         putchar(X_2%16 + '0');
                     }
