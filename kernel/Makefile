@@ -16,7 +16,7 @@ INCLUDEDIR?=$(PREFIX)/include
 GRAPHICS=
 MODE=0
 WIDTH=80
-HEIGHT=120
+HEIGHT=24
 DEPTH=0
 
 GBUFFER=0xFB000000
@@ -38,8 +38,6 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o	\
-tools/write.o \
-tools/read.o \
 tools/outb.o \
 tools/inb.o \
 tty/tty_write_char.o \

@@ -1,5 +1,4 @@
 ENTRY(_start)
-
 KERNEL_HIGH = 0xC0000000;
 
 SECTIONS {
@@ -13,12 +12,12 @@ SECTIONS {
         *(.text)
     }
 
-    .rodata ALIGN(4K) : AT(ADDR(.rodata) - KERNEL_HIGH) {
-        *(.rodata)
-    }
-
     .data ALIGN(4K) : AT(ADDR(.data) - KERNEL_HIGH) {
         *(.data)
+    }
+
+    .rodata ALIGN(4K) : AT(ADDR(.rodata) - KERNEL_HIGH) {
+        *(.rodata)
     }
 
     .bss ALIGN(4K) : AT(ADDR(.bss) - KERNEL_HIGH) {
