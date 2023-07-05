@@ -7,17 +7,13 @@
 extern "C" {
 #endif
 
-#if defined __is_libk
+int		printf(char *fmt, ...);
 
-void write_character(char c);
+int     sprintf(char *str, char *fmt, ...);
 
-#endif
+int     putchar(char c);
 
-int    printf(char *s, ...);
-
-int    putchar(char c);
-
-int    puts(char *s);
+int     puts(char *s);
 
 #if defined __iscplusplus
 }

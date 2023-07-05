@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-int printf(char *fmt, ...) {
+int sprintf(char *str, char *fmt, ...) {
     #if defined __is_libk /* Building for kernel */
 
     va_list var_args;
@@ -23,12 +23,12 @@ int printf(char *fmt, ...) {
             case 's': ;
                 char *s_1 = va_arg(var_args, char*);
                 for (;*s_1 != '\0';s_1++) {
-                    putchar(*s_1);
+                    str[n] = (*s_1);
                 }
                 break;
             case 'c': ;
                 char c_1 = va_arg(var_args, int);
-                putchar(c_1);    
+                str[n] = (c_1);    
                 break;
             case 'd': ;
                 int d_1 = va_arg(var_args, int);
@@ -38,7 +38,7 @@ int printf(char *fmt, ...) {
                     d_2 += d_1%10;
                 }
                 for (;d_2 > 0; d_2 /= 10) {
-                    putchar(d_2%10 + '0');
+                    str[n] = (d_2%10 + '0');
                 }
                 break;
             case 'x': ;
@@ -50,9 +50,9 @@ int printf(char *fmt, ...) {
                 }
                 for (;x_2 > 0; x_2 /= 16) {
                     if (x_2%16 > 9) {
-                        putchar(x_2%16 - 10 + 'a');
+                        str[n] = (x_2%16 - 10 + 'a');
                     } else {
-                        putchar(x_2%16 + '0');
+                        str[n] = (x_2%16 + '0');
                     }
                     
                 }
@@ -66,20 +66,20 @@ int printf(char *fmt, ...) {
                 }
                 for (;X_2 > 0; X_2 /= 16) {
                     if (X_2%16 > 9) {
-                        putchar(X_2%16 - 10 + 'a');
+                        str[n] = (X_2%16 - 10 + 'a');
                     } else {
-                        putchar(X_2%16 + '0');
+                        str[n] = (X_2%16 + '0');
                     }
                     
                 }
                 break;
             default:
-                putchar('%');
-                putchar(*fmt);
+                str[n] = ('%');
+                str[n] = (*fmt);
                 break;
             }
         } else {
-            putchar(*fmt);
+            str[n] = (*fmt);
         }
     }
 
@@ -90,6 +90,7 @@ int printf(char *fmt, ...) {
     /* Unused, just to satisfy --pedantic */
 
     fmt++;
+    str++;
 
     return 0;
 
