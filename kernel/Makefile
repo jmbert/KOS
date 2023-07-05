@@ -46,6 +46,7 @@ tty/enable_cursor.o \
 tty/disable_cursor.o \
 tty/set_cursor.o \
 tty/get_cursor.o \
+tty/tty_newline.o \
 isr/exceptions/handlers/__invalid_instr_handler.o \
 isr/exceptions/exception_handler.o \
 panic/kernel_panic.o \
