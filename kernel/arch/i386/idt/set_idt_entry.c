@@ -1,4 +1,4 @@
-#include <idt.h>
+#include <idt/idt.h>
 
 void set_idt_entry(size_t index, uintptr_t offset, uint16_t segselect, uint8_t flags) {
     interrupt_gate_t gate;

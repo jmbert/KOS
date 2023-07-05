@@ -1,4 +1,4 @@
-#include <idt.h>
+#include <idt/idt.h>
 #include <gdt.h>
 
 #include <string.h>

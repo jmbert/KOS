@@ -1,7 +1,7 @@
 #include <kernel/init.h>
 
 #include <gdt.h>
-#include <idt.h>
+#include <idt/idt.h>
 #include <tty.h>
 
 #include <pg/pg_map.h>

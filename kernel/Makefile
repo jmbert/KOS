@@ -46,6 +46,7 @@ tty/enable_cursor.o \
 tty/disable_cursor.o \
 tty/set_cursor.o \
 tty/get_cursor.o \
+isr/exceptions/exception_handler.o
  
 OBJS=\
 $(KERNEL_OBJS) \

@@ -1,10 +1,12 @@
+.extern exception_handler
 .macro isr_exception irq
 isr_exception_\irq:
-    pusha
-    cli
-    hlt
-    popa
-    iret
+	pusha                   /* Save register state */ 
+	push $\irq				/* Pass interrupt number */
+	call exception_handler
+	pop %eax          		/* Get argument off of stack */
+	popa					/* Load register state */
+	iret
 .endm
 
 isr_exception 0x0
