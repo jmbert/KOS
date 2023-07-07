@@ -37,7 +37,7 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
  
 include kernel/interrupts/isrs/make.isr.cfg
 
-KERNEL_OBJS=\
+KERNEL_SRC_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 $(ISR_OBJS) \
 kernel/kernel.o	\
@@ -52,9 +52,10 @@ tty/get_cursor.o \
 tty/tty_newline.o \
 kernel/interrupts/isr_table/register_isr.o \
 
+KERNEL_OBJS=$(addprefix ../kernel_obj/,$(KERNEL_SRC_OBJS))
+
 OBJS=\
 $(KERNEL_OBJS) \
-$(ISR_OBJS) \
 
 LINK_LIST=\
 $(LDFLAGS) \
@@ -65,7 +66,8 @@ $(LIBS) \
 .SUFFIXES: .o .c .S
  
 all: KOS.krnl
- 
+	@echo $(KERNEL_SRCOBJS)
+
 KOS.krnl: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
 	grub-file --is-x86-multiboot KOS.krnl
@@ -73,10 +75,10 @@ KOS.krnl: $(OBJS) $(ARCHDIR)/linker.ld
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
  
-.c.o:
+../kernel_obj/%.o: %.c
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
  
-.S.o:
+../kernel_obj/%.o: %.S
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
  
 clean:

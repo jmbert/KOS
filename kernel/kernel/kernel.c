@@ -17,7 +17,7 @@ void kernel_end(void) {
 }
 
 void kernel_main(void) {
-	asm("ud2");
+	asm("int $0x10");
 }
 
 __attribute__((noreturn))

@@ -27,7 +27,7 @@ CPPFLAGS:=$(CPPFLAGS) $(ARCH_CPPFLAGS)
 LIBK_CFLAGS:=$(LIBK_CFLAGS) $(KERNEL_ARCH_CFLAGS)
 LIBK_CPPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
  
-FREEOBJS=\
+FREEOBJS_SRC=\
 $(ARCH_FREEOBJS) \
 string/memcmp.o \
 string/memcpy.o \
@@ -39,8 +39,12 @@ stdio/printf.o \
 stdio/sprintf.o \
 stdlib/malloc.o \
  
-HOSTEDOBJS=\
+FREEOBJS=$(addprefix ../libc_obj/,$(FREEOBJS_SRC))
+
+HOSTEDOBJS_SRC=\
 $(ARCH_HOSTEDOBJS) \
+
+HOSTEDOBJS=$(addprefix ../libc_obj/,$(HOSTEDOBJS_SRC))
  
 OBJS=\
 $(FREEOBJS) \
@@ -48,8 +52,9 @@ $(HOSTEDOBJS) \
  
 LIBK_OBJS=$(FREEOBJS:.o=.libk.o)
  
-BINARIES=libc.a libk.a # Not ready for libc yet.
- 
+#BINARIES=libc.a libk.a # Not ready for libc yet.
+BINARIES=libk.a
+
 .PHONY: all clean install install-headers install-libs
 .SUFFIXES: .o .libk.o .c .S
  
@@ -61,16 +66,16 @@ libc.a: $(OBJS)
 libk.a: $(LIBK_OBJS)
 	$(AR) rcs $@ $(LIBK_OBJS)
  
-.c.o:
+../libc_obj/%.o: %.c
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
  
-.S.o:
+../libc_obj/%.o: %.S
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
  
-.c.libk.o:
+../libc_obj/%.libk.o: %.c
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
  
-.S.libk.o:
+../libc_obj/%.libk.o: %.c
 	$(CC) -MD -c $< -o $@ $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
  
 clean:

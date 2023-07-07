@@ -10,6 +10,12 @@ while getopts ":d" option; do
    esac
 done
 
+[ ! -d "kernel_obj" ] && mkdir kernel_obj
+rsync -a --include '*/' --exclude '*' kernel/ kernel_obj/
+
+[ ! -d "libc_obj" ] && mkdir libc_obj
+rsync -a --include '*/' --exclude '*' libc/ libc_obj/
+
 for PROJECT in $PROJECTS; do
   (cd $PROJECT && DESTDIR="$SYSROOT" $MAKE install $MFLAGS)
 done

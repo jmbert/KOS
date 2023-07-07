@@ -5,3 +5,5 @@ TODO.md
 *.iso
 sysroot/
 %.krnl
+kernel_obj/
+libc_obj/

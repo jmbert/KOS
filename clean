@@ -9,3 +9,5 @@ done
 rm -rf sysroot
 rm -rf isodir
 rm -rf KOS.iso
+rm -rf kernel_obj
+rm -rf libc_obj
