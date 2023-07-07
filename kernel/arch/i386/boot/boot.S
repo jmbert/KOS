@@ -163,7 +163,3 @@ remove_kernel_page_low:
 				cli				# Unbothered by interrupts
 kernel_hang:	hlt				# Stop the CPU
 				jmp kernel_hang	# If we somehow get out, get back in
-
-.section .data
-__KERNEL_TABLES_LENGTH:
-.long 0
