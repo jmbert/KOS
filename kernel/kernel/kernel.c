@@ -10,12 +10,17 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <tty.h>
+
+__attribute__((noreturn))
+void kernel_end(void) {
+	KERNEL_PANIC("Reached end of kernel execution", 0);
+}
 
 void kernel_main(void) {
 
 }
 
+__attribute__((noreturn))
 void kernel_init(multiboot_info_t *minfo) {
 	disable_cursor();
 	arch_init(minfo);
@@ -27,4 +32,5 @@ void kernel_init(multiboot_info_t *minfo) {
 	register_isr(invalid_opcode_enter,	INVOP);
 
 	kernel_main();
+	kernel_end();
 }
