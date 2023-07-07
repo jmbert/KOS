@@ -1,6 +1,5 @@
-#include <tty.h>
-
-#include <tools.h>
+#include <kernel/tty.h>
+#include <kernel/tools.h>
 
 void enable_cursor(void) {
     outb(0x0A, VGA_PORT_1);

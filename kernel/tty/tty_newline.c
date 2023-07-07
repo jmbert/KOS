@@ -1,6 +1,4 @@
-#include <tty.h>
-
-#include <string.h>
+#include <kernel/tty.h>
 
 void tty_newline(void) {
     size_t current_line = current_off/WIDTH;

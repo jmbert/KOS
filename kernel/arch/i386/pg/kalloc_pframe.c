@@ -1,5 +1,5 @@
-#include <pg/pframe.h>
-#include <pg/pg_defs.h>
+#include <arch/i386/pg/pframe.h>
+#include <arch/i386/pg/pg_defs.h>
 
 extern uintptr_t __KERNEL_END;
 

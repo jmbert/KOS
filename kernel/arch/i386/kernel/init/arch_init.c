@@ -1,12 +1,13 @@
-#include <kernel/init.h>
+#include <arch/init.h>
 
-#include <gdt.h>
-#include <idt/idt.h>
-#include <tty.h>
+#include <arch/i386/gdt.h>
+#include <arch/i386/idt.h>
+#include <arch/i386/pg/pframe.h>
+#include <arch/i386/pg/pg_map.h>
+#include <arch/i386/pg/pg_defs.h>
 
-#include <pg/pframe.h>
-#include <pg/pg_map.h>
-#include <pg/pg_defs.h>
+#include <kernel/tty.h>
+
 #include <stdlib.h>
 
 void arch_init(multiboot_info_t *minfo) {

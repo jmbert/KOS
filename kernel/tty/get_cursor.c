@@ -1,6 +1,5 @@
-#include <tty.h>
-
-#include <tools.h>
+#include <kernel/tty.h>
+#include <kernel/tools.h>
 
 size_t get_cursor(void) {
     size_t pos = 0;

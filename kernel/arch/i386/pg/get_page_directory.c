@@ -1,4 +1,4 @@
-#include <pg/pg_tools.h>
+#include <arch/i386/pg/pg_tools.h>
 
 pframe_t *get_page_directory(void) {
     pframe_t *pdir;

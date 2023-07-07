@@ -4,10 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define GBUFFER 0xFB000000
-
 #define GBUFFER_LEN WIDTH*HEIGHT*2
-
 
 #define VGA_PORT_1 0x3d4
 #define VGA_PORT_2 0x3d5

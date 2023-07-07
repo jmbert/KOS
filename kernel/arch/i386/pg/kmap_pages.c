@@ -1,7 +1,7 @@
-#include <pg/pg_map.h>
-#include <pg/pg_defs.h>
-#include <pg/pg_tools.h>
-#include <pg/pframe.h>
+#include <arch/i386/pg/pg_map.h>
+#include <arch/i386/pg/pg_defs.h>
+#include <arch/i386/pg/pg_tools.h>
+#include <arch/i386/pg/pframe.h>
 
 extern uintptr_t __KERNEL_END;
 

@@ -1,6 +1,5 @@
-#include <tty.h>
-
-#include <tools.h>
+#include <kernel/tty.h>
+#include <kernel/tools.h>
 
 void set_cursor(size_t new) {
 	outb(0x0F, VGA_PORT_1);

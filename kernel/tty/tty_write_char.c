@@ -1,4 +1,4 @@
-#include <tty.h>
+#include <kernel/tty.h>
 
 size_t current_off;
 
