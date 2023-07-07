@@ -4,9 +4,10 @@
 #include <kernel/interrupts/exceptions.h>
 #include <kernel/interrupts/isr_table.h>
 
-EXCEPTION_ENTRY_C(division_error_enter);
-EXCEPTION_ENTRY_C(debug_exception_enter);
-EXCEPTION_ENTRY_C(invalid_opcode_enter);
+EXCEPTION_ENTRY_C(division_error);
+EXCEPTION_ENTRY_C(debug_exception);
+EXCEPTION_ENTRY_C(invalid_opcode);
+EXCEPTION_ENTRY_C(no_handler);
 
 void init_isr(void);
 

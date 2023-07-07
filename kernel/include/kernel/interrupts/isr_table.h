@@ -7,6 +7,8 @@
 
 #define MAX_ISRS 0x400
 
+#define EXCEPTION_ISRS 0x20
+
 typedef void (*isr_entry_fp)(void);
 
 extern isr_entry_fp   isr_table[MAX_ISRS];
