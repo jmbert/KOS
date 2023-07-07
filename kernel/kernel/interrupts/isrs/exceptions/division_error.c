@@ -1,5 +1,3 @@
-#include <kernel/interrupts/isrs/isr_exceptions.h>
-
 #include <kernel/interrupts/exceptions.h>
 #include <kernel/panic.h>
 
