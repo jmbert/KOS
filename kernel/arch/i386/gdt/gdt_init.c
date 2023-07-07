@@ -1,4 +1,4 @@
-#include <gdt.h>
+#include <arch/i386/gdt.h>
 
 gdt_entry_t gdt[5];
 
