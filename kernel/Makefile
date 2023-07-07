@@ -28,14 +28,14 @@ LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
  
  
-include $(ARCHDIR)/make.config
+include $(ARCHDIR)/make.cfg
  
 CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
 CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
 LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
  
-include interrupts/isrs/make.isr
+include kernel/interrupts/isrs/make.isr.cfg
 
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
@@ -50,7 +50,7 @@ tty/disable_cursor.o \
 tty/set_cursor.o \
 tty/get_cursor.o \
 tty/tty_newline.o \
-interrupts/isr_table/register_isr.o \
+kernel/interrupts/isr_table/register_isr.o \
 
 OBJS=\
 $(KERNEL_OBJS) \

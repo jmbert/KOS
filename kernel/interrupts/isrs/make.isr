@@ -1,4 +1,0 @@
-ISR_OBJS=\
-interrupts/isrs/exceptions/division_error.o     \
-interrupts/isrs/exceptions/debug_exception.o    \
-interrupts/isrs/exceptions/invalid_opcode.o
