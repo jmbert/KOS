@@ -21,12 +21,12 @@ DEPTH=0
 
 GBUFFER=0xFB000000
  
+ARCHDIR=arch/$(HOSTARCH)
 CFLAGS:=$(CFLAGS)
-CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -DMODE=$(MODE) -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT) -DDEPTH=$(DEPTH) -DGBUFFER=$(GBUFFER) $(GRAPHICS) -Iinclude -Iarch/$(HOSTARCH)/include
+CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -DMODE=$(MODE) -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT) -DDEPTH=$(DEPTH) -DGBUFFER=$(GBUFFER) $(GRAPHICS)
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
  
-ARCHDIR=arch/$(HOSTARCH)
  
 include $(ARCHDIR)/make.config
  
@@ -35,8 +35,11 @@ CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
 LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
  
+include interrupts/isrs/make.isr
+
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
+$(ISR_OBJS) \
 kernel/kernel.o	\
 tools/outb.o \
 tools/inb.o \
@@ -47,17 +50,12 @@ tty/disable_cursor.o \
 tty/set_cursor.o \
 tty/get_cursor.o \
 tty/tty_newline.o \
-isr/exceptions/handlers/__invalid_instr_handler.o \
-isr/exceptions/handlers/__page_fault_handler.o \
-isr/exceptions/exception_handler.o \
-panic/kernel_panic.o \
-panic/kernel_warning.o \
-panic/kernel_info.o \
-panic/kernel_save.o \
- 
+interrupts/isr_table/register_isr.o \
+
 OBJS=\
 $(KERNEL_OBJS) \
- 
+$(ISR_OBJS) \
+
 LINK_LIST=\
 $(LDFLAGS) \
 $(KERNEL_OBJS) \

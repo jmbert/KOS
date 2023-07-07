@@ -1,35 +1,22 @@
-#include <idt/idt.h>
-#include <gdt.h>
+#include <arch/i386/idt.h>
 
-#include <string.h>
+#ifdef DEBUG
+#include <stdio.h>
+#endif
 
-extern void *isr_stub_table[];
+idt_gate_t 	idt[MAX_ISRS];
+idtr_t 		idtr;
 
-idtr_t idtr;
+void idt_init(void) {
+	__update_idt();
 
-//#error Stuff happening here, maybe being overwritten? Can't tell
+	idtr.size = sizeof(idt_gate_t)*MAX_ISRS;
+	idtr.off_low = 	((uintptr_t)idt) & 0x0000ffff;
+	idtr.off_high = ((uintptr_t)idt) >> 16;
 
-void idt_set_descriptor(uint8_t vector, void* isr, uint8_t flags) {
-    interrupt_gate_t *gate = &idt[vector];
- 
-    gate->off_low        = (uint32_t)isr & 0xFFFF;
-    gate->segselect      = GDT_KERNEL_CODE; // this value can be whatever offset your kernel code selector is in your GDT
-    gate->flags            = flags;
-    gate->off_high       = (uint32_t)isr >> 16;
-    gate->zero          = 0;
-}
 
-void idt_init() {
-    idtr.offset_low = (uint32_t)&idt[0];
-    idtr.offset_high = ((uint32_t)&idt[0]) >> 16;
-    idtr.size = (uint16_t)sizeof(interrupt_gate_t) * 0x20 - 1;
- 
-    for (uint8_t vector = 0; vector < 0x20; vector++) {
-        
-        idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
-        
-    }
- 
-    __asm__ volatile ("lidt %0" : : "m"(idtr)); // load the new IDT
-    __asm__ volatile ("sti"); // set the interrupt flag
+	asm("lidt %0\n"
+		"sti"
+		 :: 
+		 "m"(idtr));
 }
