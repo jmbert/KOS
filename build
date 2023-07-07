@@ -1,7 +1,15 @@
 #!/bin/sh
 set -e
+
 . ./headers
- 
+
+while getopts ":d" option; do
+   case $option in
+      d) # Debug
+         export CFLAGS="$CFLAGS -DDEBUG"
+   esac
+done
+
 for PROJECT in $PROJECTS; do
-  (cd $PROJECT && DESTDIR="$SYSROOT" $MAKE install)
+  (cd $PROJECT && DESTDIR="$SYSROOT" $MAKE install $MFLAGS)
 done
