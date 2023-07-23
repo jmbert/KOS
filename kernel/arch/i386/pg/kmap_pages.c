@@ -13,12 +13,14 @@ void kmap_pages(uintptr_t to, uintptr_t from, size_t pages, uint8_t flags) {
     size_t page_index = to / PG_SIZE_SMALL;
     size_t end_page_index = page_index + pages;
 
+    pframe_t *page_dir = get_page_directory();
+    
     for (;table_index <= end_table_index;table_index++) {
-        pframe_t table = get_page_directory()[table_index];
+        pframe_t table = page_dir[table_index];
 
         if (!(table & 0x1)) {
             table = kalloc_pframe();              /* Present and writeable directory */
-            get_page_directory()[table_index] = table | 0x3;
+            page_dir[table_index] = table | 0x3;
         }
     
         size_t page_offset = page_index-(table_index*PG_TABLE_LEN_SMALL);

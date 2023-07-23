@@ -4,7 +4,9 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define GBUFFER_LEN WIDTH*HEIGHT*2
+#define TBUFFER GBUFFER
+
+#define GBUFFER_LEN (WIDTH*HEIGHT)
 
 #define VGA_PORT_1 0x3d4
 #define VGA_PORT_2 0x3d5
@@ -24,5 +26,9 @@ size_t get_cursor(void);
 void enable_cursor(void);
 
 void disable_cursor(void);
+
+void scroll_down(void);
+
+void scroll_up(void);
 
 #endif

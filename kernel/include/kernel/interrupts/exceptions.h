@@ -39,10 +39,11 @@ enum {
 											
 #define EXCEPTION_ENTER_CODE(name) 	asm(".global " #name "_enter\n" \
 										#name "_enter:\n" \
-										"mov %esp, %eax" \
-										"sub $0x4, %eax" \
+										"mov %esp, %eax\n" \
+										"sub $0x4, %eax\n" \
 										"push %eax\n" \
 										"call " #name "\n" \
+										"add $0x8, %esp\n" \
 										"iret")
 										
 											

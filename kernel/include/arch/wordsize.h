@@ -7,7 +7,7 @@
 #define WORDSIZE \
 #error Target Architecture must implement a word size
 
-#if (HOST==i686-elf)
+#if (HOST==i386-elf)
 #undef WORDSIZE
 #define WORDSIZE 32
 #elif (HOST==x86_64)

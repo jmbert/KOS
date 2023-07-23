@@ -43,6 +43,7 @@ $(ISR_OBJS) \
 kernel/kernel.o	\
 tools/outb.o \
 tools/inb.o \
+tools/get_registers.o \
 tty/tty_write_char.o \
 tty/tty_change_col.o \
 tty/enable_cursor.o \
@@ -50,7 +51,11 @@ tty/disable_cursor.o \
 tty/set_cursor.o \
 tty/get_cursor.o \
 tty/tty_newline.o \
+tty/scroll.o \
 kernel/interrupts/isr_table/register_isr.o \
+hardware/pic/remap_pics.o \
+hardware/pic/set_mask.o \
+hardware/pic/pic_send_eoi.o
 
 KERNEL_OBJS=$(addprefix ../kernel_obj/,$(KERNEL_SRC_OBJS))
 

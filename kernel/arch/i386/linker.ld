@@ -28,5 +28,4 @@ SECTIONS {
     . = ALIGN(2M); /* Align end to 2M boundary */
 
     __KERNEL_END = .;
-    __KERNEL_LEN = __KERNEL_END-__KERNEL_START;
 }
