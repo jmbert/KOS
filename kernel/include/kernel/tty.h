@@ -11,6 +11,8 @@
 #define VGA_PORT_1 0x3d4
 #define VGA_PORT_2 0x3d5
 
+#define TAB_LEN 4
+
 extern size_t current_off; 
 
 int tty_write_char(char c);
@@ -29,6 +31,8 @@ void disable_cursor(void);
 
 void scroll_down(void);
 
-void scroll_up(void);
+int tty_get_char(void);
+
+extern int waiting_for_char;
 
 #endif

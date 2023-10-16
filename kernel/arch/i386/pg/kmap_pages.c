@@ -26,7 +26,7 @@ void kmap_pages(uintptr_t to, uintptr_t from, size_t pages, uint8_t flags) {
         size_t page_offset = page_index-(table_index*PG_TABLE_LEN_SMALL);
 
         for (;page_offset < PG_TABLE_LEN_SMALL && page_index < end_page_index;page_index++, page_offset++, from += PG_SIZE_SMALL) {
-            ((pframe_t*)(table + PG_STRUCTS_START - 0x200000))[page_offset] = from | flags;
+            ((pframe_t*)(table + PG_STRUCTS_START - 0x200000))[page_offset] = from | flags; /* Write page */
         }
     }
     

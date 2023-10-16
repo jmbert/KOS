@@ -1,5 +1,7 @@
 #!/bin/sh
 set -e
-. ./iso
+. ./config
  
+printf "\e[1;32mLaunching QEMU with ISO file \e[0;33mKOS.iso\e[0m\n"
+
 qemu-system-$(./target-triplet-to-arch $HOST) -cdrom KOS.iso

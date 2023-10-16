@@ -11,6 +11,7 @@ while getopts ":d" option; do
 done
 
 [ ! -d "kernel_obj" ] && mkdir kernel_obj
+printf "\e[1;32mSynchronising Build Sub-structure from \e[0;33m kernel/ \e[1;32m to \e[0;33m kernel_obj/ \e\n[m"
 rsync -a --include '*/' --exclude '*' kernel/ kernel_obj/
 
 [ ! -d "libc_obj" ] && mkdir libc_obj

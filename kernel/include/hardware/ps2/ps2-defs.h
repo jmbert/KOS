@@ -1,0 +1,20 @@
+#ifndef _PS2_DEFS_H
+#define _PS2_DEFS_H
+
+#define PS2_DATA_PORT       	0x60
+#define PS2_STATUS_REG      	0x64
+#define PS2_COMMAND_REG     	0x64
+
+#define PS2_RW_TIMEOUT_LOOPS 	0x100
+
+enum {
+	PS2_CMD_DISABLE_1 = 0xAD,
+	PS2_CMD_DISABLE_2 = 0xA7,
+	PS2_CMD_READ_CCB = 0x20,
+	PS2_CMD_WRITE_CCB = 0x60,
+	PS2_CMD_ENABLE_1 = 0xAE,
+	PS2_CMD_ENABLE_2 = 0xA8,
+	
+};
+
+#endif

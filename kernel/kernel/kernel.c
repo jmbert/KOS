@@ -1,10 +1,7 @@
-#if defined DEBUG
-#include "../../TODO"
-#endif
-
 #include <multiboot.h>
-
 #include <arch/init.h>
+
+#include <arch/paging.h>
 
 #include <kernel/tty.h>
 #include <kernel/panic.h>
@@ -14,6 +11,8 @@
 
 #include <hardware/pic/pic_f.h>
 #include <hardware/pic/pic-defs.h>
+
+#include <hardware/ps2/ps2-f.h>
 
 #include <stdint.h>
 #include <stddef.h>
@@ -39,10 +38,9 @@ void kernel_init(multiboot_info_t *minfo) {
 
 	remap_pics(MPIC_IRQVECS, SPIC_IRQVECS);
 
-	set_mask(0x00);
+	set_mask(0xfd);
 
-	pic_send_eoi(0);
-	pic_send_eoi(8);
+	init_ps2();
 
 	kernel_main();
 	kernel_end();

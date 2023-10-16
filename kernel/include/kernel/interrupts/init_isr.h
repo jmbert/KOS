@@ -3,14 +3,18 @@
 
 #include <kernel/interrupts/exceptions.h>
 #include <kernel/interrupts/isr_table.h>
+#include <kernel/interrupts/irqs.h>
 
-EXCEPTION_ENTRY_C(no_handler);
-EXCEPTION_ENTRY_C(no_handler_code);
+void no_handler_enter(void);
+void no_handler_code_enter(void);
 
-EXCEPTION_ENTRY_C(division_error);
-EXCEPTION_ENTRY_C(debug_exception);
-EXCEPTION_ENTRY_C(invalid_opcode);
-EXCEPTION_ENTRY_C(page_fault);
+void division_error_enter(void);
+void debug_exception_enter(void);
+void invalid_opcode_enter(void);
+void page_fault_enter(void);
+
+void keyboard_irq_enter(void);
+void pit_irq_enter(void);
 
 void init_isr(void);
 

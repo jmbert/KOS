@@ -51,10 +51,4 @@ enum {
 #define EXCEPTION_DECL_NOCODE(name) void name(except_sf_t *sf)
 #define EXCEPTION_DECL_CODE(name) 	void name(except_sf_t *sf, uword_t error_code)
 
-#define EXCEPTION_ENTRY_C(name)		void name ## _enter(void)
-
-EXCEPTION_ENTRY_C(division_error);
-EXCEPTION_ENTRY_C(debug_exception);
-EXCEPTION_ENTRY_C(invalid_opcode);
-
 #endif

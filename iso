@@ -1,15 +1,25 @@
 #!/bin/sh
 set -e
+
 . ./build
  
+printf "\e[1;32mSetting up GRUB file strucure \e[0m\n"
+
 mkdir -p isodir
 mkdir -p isodir/boot
 mkdir -p isodir/boot/grub
  
-cp sysroot/boot/KOS.krnl isodir/boot/KOS.krnl
-cat > isodir/boot/grub/grub.cfg << EOF
-menuentry "KOS" {
-	multiboot /boot/KOS.krnl
-}
-EOF
+
+printf "\e[1;32mInstalling kernel ELF \e[0;33msysroot/boot/KOS.krnl\e[1;32m to \e[0;33misodir/boot/KOS.krnl\e[0m\n"
+ 
+cp -v sysroot/boot/KOS.krnl isodir/boot/KOS.krnl
+printf "\e[1;32mFinished installing kernel ELF \e[0;33msysroot/boot/KOS.krnl\e[1;32m to \e[0;33misodir/boot/KOS.krnl\e[0m\n"
+ 
+printf "\e[1;32mInstalling grub config file \e[0;33mgrub.cfg\e[1;32m to \e[0;33misodir/boot/grub/grub.cfg\e[0m\n"
+cp -v grub.cfg isodir/boot/grub/grub.cfg
+printf "\e[1;32mFinished installing grub config file \e[0;33mgrub.cfg\e[1;32m to \e[0;33misodir/boot/grub/grub.cfg\e[0m\n"
+ 
+
+printf "\e[1;32mMaking GRUB rescue file \e[0;33mKOS.iso\e[1;32m from \e[0;33misodir\e[0m\n"
 grub-mkrescue -o KOS.iso isodir
+printf "\e[1;32mFinished making GRUB rescue file \e[0;33mKOS.iso\e[1;32m from \e[0;33misodir\e[0m\n"

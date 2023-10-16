@@ -15,8 +15,17 @@ export EXEC_PREFIX=$PREFIX
 export BOOTDIR=/boot
 export LIBDIR=$EXEC_PREFIX/lib
 export INCLUDEDIR=$PREFIX/include
+
+export GRAPHICS=
+export MODE=0
+export WIDTH=160
+export HEIGHT=25
+export DEPTH=0
+export GBUFFER=0xFB000000
+
+
  
-export CFLAGS='-O2 -g -ffreestanding -mno-red-zone -Wall -Wextra -Werror --pedantic -DHOST=$(HOST)'
+export CFLAGS='-O2 -g -ffreestanding -mno-red-zone -Wall -Wextra -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT) -DMODE=$(MODE) -DDEPTH=$(DEPTH) -DGBUFFER=$(GBUFFER) $(GRAPHICS) --pedantic -DHOST=$(HOST)'
 export CPPFLAGS=''
 
 export MFLAGS=""

@@ -1,5 +1,7 @@
 #include <kernel/interrupts/init_isr.h>
 
+#include <hardware/pic/pic-defs.h>
+
 static void register_exceptions(void) {
 
 	for (size_t vec = 0; vec < EXCEPTION_ISRS; vec++) {
@@ -31,6 +33,12 @@ static void register_exceptions(void) {
 	register_isr(page_fault_enter,      PAGE_FAULT);
 }
 
+static void register_irqs(void) {
+	register_isr(keyboard_irq_enter,	MPIC_IRQVECS+KEY_IRQ);
+	register_isr(pit_irq_enter, MPIC_IRQVECS+PIT_IRQ);
+}
+
 void init_isr(void) {
 	register_exceptions();
+	register_irqs();
 }

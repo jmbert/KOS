@@ -12,18 +12,10 @@ PREFIX?=/usr/local
 EXEC_PREFIX?=$(PREFIX)
 BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
-
-GRAPHICS=
-MODE=0
-WIDTH=160
-HEIGHT=25
-DEPTH=0
-
-GBUFFER=0xFB000000
  
 ARCHDIR=arch/$(HOSTARCH)
 CFLAGS:=$(CFLAGS)
-CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -DMODE=$(MODE) -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT) -DDEPTH=$(DEPTH) -DGBUFFER=$(GBUFFER) $(GRAPHICS)
+CPPFLAGS:=$(CPPFLAGS) -D__is_kernel 
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
  
@@ -55,7 +47,10 @@ tty/scroll.o \
 kernel/interrupts/isr_table/register_isr.o \
 hardware/pic/remap_pics.o \
 hardware/pic/set_mask.o \
-hardware/pic/pic_send_eoi.o
+hardware/pic/pic_send_eoi.o\
+hardware/ps2/init_ps2.o\
+hardware/ps2/byte_rw.o\
+kernel/keyboard.o
 
 KERNEL_OBJS=$(addprefix ../kernel_obj/,$(KERNEL_SRC_OBJS))
 
@@ -71,20 +66,22 @@ $(LIBS) \
 .SUFFIXES: .o .c .S
  
 all: KOS.krnl
-	@echo $(KERNEL_SRCOBJS)
 
 KOS.krnl: $(OBJS) $(ARCHDIR)/linker.ld
-	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
-	grub-file --is-x86-multiboot KOS.krnl
- 
-$(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
-	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
+	@printf "\e[1;32mBuilding Kernel\e\n[m"
+	@$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
+	@grub-file --is-x86-multiboot KOS.krnl
+	@printf "\e[1;32mFinished Building Kernel\e\n[m"
  
 ../kernel_obj/%.o: %.c
-	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
 ../kernel_obj/%.o: %.S
-	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
 clean:
 	rm -f KOS.krnl
@@ -94,11 +91,15 @@ clean:
 install: install-headers install-kernel
  
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
+	@printf "\e[1;32mInstalling kernel header files to \e[0;33m $(DESTDIR)$(INCLUDEDIR) \e\n[m"
+	@mkdir -p $(DESTDIR)$(INCLUDEDIR)
+	@cp -Rv --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
+	@printf "\e[1;32mFinished installing kernel header files to \e[0;33m $(DESTDIR)$(INCLUDEDIR)\e\n[m"
  
 install-kernel: KOS.krnl
-	mkdir -p $(DESTDIR)$(BOOTDIR)
-	cp KOS.krnl $(DESTDIR)$(BOOTDIR)
+	@printf "\e[1;32mInstalling kernel to \e[0;33m $(DESTDIR)$(BOOTDIR)\e\n[m"
+	@mkdir -p $(DESTDIR)$(BOOTDIR)
+	@cp -v KOS.krnl $(DESTDIR)$(BOOTDIR)
+	@printf "\e[1;32mFinished installing kernel to \e[0;33m $(DESTDIR)$(BOOTDIR)\e\n[m"
  
 -include $(OBJS:.o=.d)

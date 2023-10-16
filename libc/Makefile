@@ -61,22 +61,34 @@ BINARIES=libk.a
 all: $(BINARIES)
  
 libc.a: $(OBJS)
-	$(AR) rcs $@ $(OBJS)
+	@printf "\e[1;32mBuilding Libk\e\n[m"
+	@$(AR) -v rcs $@ $(OBJS)
+	@printf "\e[1;32mFinished Building Libk\e\n[m"
  
 libk.a: $(LIBK_OBJS)
-	$(AR) rcs $@ $(LIBK_OBJS)
+	@printf "\e[1;32mBuilding Libk\e\n[m"
+	@$(AR) -v rcs $@ $(LIBK_OBJS)
+	@printf "\e[1;32mFinished Building Libk\e\n[m"
  
 ../libc_obj/%.o: %.c
-	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
 ../libc_obj/%.o: %.S
-	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
 ../libc_obj/%.libk.o: %.c
-	$(CC) -MD -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ -std=gnu11 $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
-../libc_obj/%.libk.o: %.c
-	$(CC) -MD -c $< -o $@ $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+../libc_obj/%.libk.o: %.S
+	@printf "\e[1;32mBuilding \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
+	@$(CC) -MD -c $< -o $@ $(LIBK_CFLAGS) $(LIBK_CPPFLAGS)
+	@printf "\e[1;32mFinished building \e[0;33m $@ \e[1;32m from \e[0;33m $<\e\n[m"
  
 clean:
 	rm -f $(BINARIES) *.a
@@ -86,12 +98,16 @@ clean:
 install: install-headers install-libs
  
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
+	@printf "\e[1;32mInstalling libc header files to \e[0;33m $(DESTDIR)$(INCLUDEDIR) \e\n[m"
+	@mkdir -p $(DESTDIR)$(INCLUDEDIR)
+	@cp -Rv --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
+	@printf "\e[1;32mFinished installing libc header files to \e[0;33m $(DESTDIR)$(INCLUDEDIR)\e\n[m"
  
 install-libs: $(BINARIES)
-	mkdir -p $(DESTDIR)$(LIBDIR)
-	cp $(BINARIES) $(DESTDIR)$(LIBDIR)
+	@printf "\e[1;32mInstalling binaries to \e[0;33m $(DESTDIR)$(LIBDIR)\e\n[m"
+	@mkdir -p $(DESTDIR)$(LIBDIR)
+	@cp -v $(BINARIES) $(DESTDIR)$(LIBDIR)
+	@printf "\e[1;32mFinished installing binaries to \e[0;33m $(DESTDIR)$(LIBDIR)\e\n[m"
  
 -include $(OBJS:.o=.d)
 -include $(LIBK_OBJS:.o=.d)

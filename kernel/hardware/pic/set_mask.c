@@ -6,8 +6,8 @@
 void set_mask(uint8_t mask) {
  
     if (mask & 0xf0) {
-        outb(SPIC_DAT, mask >> 0x4);
+        outb(mask >> 0x4, SPIC_DAT);
     }
-    outb(MPIC_DAT, mask);        
+    outb(mask, MPIC_DAT);        
 
 }
